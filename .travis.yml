@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - openjdk16
+
+sudo: false
+
+group: travis_latest
+
+## Clean, validate, compile and run tests
+script: "mvn clean && mvn validate && mvn compile && mvn test"
