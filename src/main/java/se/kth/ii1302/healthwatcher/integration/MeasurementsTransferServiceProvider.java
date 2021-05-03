@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MeasurementsTransferServiceProvider {
@@ -43,12 +42,11 @@ public class MeasurementsTransferServiceProvider {
         return responseContent.toString();
     }
 
-
-    public String sendSeveralMeasurements(MeasurementsDTO[] measurements) throws InterruptedException, IOException {
+    public String sendSeveralMeasurements(MeasurementsDTO[] measurements, int transferRate) throws InterruptedException, IOException {
         StringBuilder results = new StringBuilder();
         for (int i = 0; i < measurements.length; i++) {
             results.append(sendMeasurement(measurements[i]));
-            Thread.sleep(5000);
+            Thread.sleep(transferRate * 1000);
         }
         return results.toString();
     }

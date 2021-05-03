@@ -52,7 +52,7 @@ public class MeasurementsProvider {
         }
     }
 
-    public float roundToNDecimalPlaces(float number, int decimalPlaces) {
+    private float roundToNDecimalPlaces(float number, int decimalPlaces) {
         StringBuilder pattern = new StringBuilder();
         pattern.append("#.");
         for(int i = 0; i < decimalPlaces; i++) {
