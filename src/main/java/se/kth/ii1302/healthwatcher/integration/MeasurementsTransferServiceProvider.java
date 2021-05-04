@@ -1,7 +1,5 @@
 package se.kth.ii1302.healthwatcher.integration;
 
-import se.kth.ii1302.healthwatcher.dto.MeasurementsDTO;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,28 +7,34 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MeasurementsTransferServiceProvider {
-    String managementServerURL = "https://httpbin.org/anything";
+/**
+ * Handle the communication to the server for sending measurements.
+ */
+public class MeasurementsTransferServiceProvider implements InformationTransferProvider{
+    private String managementServerURL;
 
-    public MeasurementsTransferServiceProvider() {}
-
-    private HttpURLConnection getConnection() throws IOException {
-        URL managementServer= new URL(this.managementServerURL);
-        return (HttpURLConnection) managementServer.openConnection();
+    /**
+     * Constructor
+     * @param url the server url.
+     */
+    public MeasurementsTransferServiceProvider(String url) {
+        this.managementServerURL = url;
     }
 
-    private void closeConnection(HttpURLConnection connection) {
-        connection.disconnect();
-    }
-
-    public String sendMeasurement(MeasurementsDTO measurement) throws IOException {
+    /**
+     * Send the information of the measurement to the server.
+     * @param measurement the desired measurement to send.
+     * @return a string with the response.
+     * @throws IOException is case something went wrong with the communication of the sending process.
+     */
+    public String sendMeasurement(String measurement) throws IOException {
         HttpURLConnection serverConnection = getConnection();
         serverConnection.setRequestMethod("POST");
         serverConnection.setDoOutput(true);
         serverConnection.setUseCaches(false);
-        serverConnection.setRequestProperty("Content-Length", Integer.toString(measurement.toString().length()));
+        serverConnection.setRequestProperty("Content-Length", Integer.toString(measurement.length()));
         DataOutputStream sendRequestToServer = new DataOutputStream(serverConnection.getOutputStream());
-        sendRequestToServer.writeBytes(measurement.toString());
+        sendRequestToServer.writeBytes(measurement);
         BufferedReader getServerResponse = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
         StringBuilder responseContent = new StringBuilder();
         String line = getServerResponse.readLine();
@@ -42,12 +46,29 @@ public class MeasurementsTransferServiceProvider {
         return responseContent.toString();
     }
 
-    public String sendSeveralMeasurements(MeasurementsDTO[] measurements, int transferRate) throws InterruptedException, IOException {
-        StringBuilder results = new StringBuilder();
+    /**
+     * Send several measurements at a certain pace.
+     * @param measurements the desired measurements that wanted to be send.
+     * @param transferRate the rate of the pause gap between the sending process.
+     * @return an array with all the response messages.
+     * @throws InterruptedException in case something went wrong with the waiting process.
+     * @throws IOException is case something went wrong with the communication of the sending process.
+     */
+    public String[] sendSeveralMeasurements(String[] measurements, int transferRate) throws InterruptedException, IOException {
+        String[] results = new String[measurements.length];
         for (int i = 0; i < measurements.length; i++) {
-            results.append(sendMeasurement(measurements[i]));
+            results[i] = sendMeasurement(measurements[i]);
             Thread.sleep(transferRate * 1000);
         }
-        return results.toString();
+        return results;
+    }
+
+    private HttpURLConnection getConnection() throws IOException {
+        URL managementServer= new URL(this.managementServerURL);
+        return (HttpURLConnection) managementServer.openConnection();
+    }
+
+    private void closeConnection(HttpURLConnection connection) {
+        connection.disconnect();
     }
 }
