@@ -37,7 +37,7 @@ public class DeviceIDManager implements DeviceIDHandler{
     }
 
     /**
-     * Get the device id present or generated last.
+     * Get the device id current or generated last.
      * @return a string with the device id.
      */
     public String getGeneratedDeviceId() {
