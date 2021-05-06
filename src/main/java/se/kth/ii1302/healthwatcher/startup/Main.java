@@ -19,9 +19,9 @@ public class Main {
             InformationTransferProvider measurementsTransferServiceProvider =
                     new MeasurementsTransferServiceProvider("https://httpbin.org/anything");
             EncryptionProvider encryptionServiceProvider = new EncryptionServiceProvider();
-            Controller controller = new Controller((DeviceIDManager) deviceIDManager,
-                    (MeasurementsTransferServiceProvider) measurementsTransferServiceProvider,
-                    (EncryptionServiceProvider) encryptionServiceProvider);
+            Controller controller = new Controller(deviceIDManager,
+                    measurementsTransferServiceProvider,
+                    encryptionServiceProvider);
             MainView appInterface = new MainView(controller);
             appInterface.runInterface();
         } catch (Exception ex) {

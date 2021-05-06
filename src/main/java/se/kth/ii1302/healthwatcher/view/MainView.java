@@ -4,6 +4,7 @@ import se.kth.ii1302.healthwatcher.controller.Controller;
 import se.kth.ii1302.healthwatcher.dto.MeasurementsDTO;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * The main interface of the application that will provide easy access to the application functionalities.
