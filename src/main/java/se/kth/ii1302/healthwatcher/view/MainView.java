@@ -30,12 +30,13 @@ public class MainView {
             // URL that helps with sending data tests "https://httpbin.org/anything"
             // URL for the server management server "http://5.150.209.79:1234/"
             Scanner scanner = new Scanner(System.in);
-
+            MeasurementsDTO[] measurements = null;
             while(true) {
                 interfaceMenu();
                 System.out.println("Enter you choice: ");
                 int choice = scanner.nextInt();
                 System.out.println("");
+                Date testDate = new Date(2021, 5, 1, 7, 30);
                 switch (choice) {
                     case 1:
                         System.out.println("The present device id: " + this.controller.getDeviceID());
@@ -45,20 +46,33 @@ public class MainView {
                         String newDeviceId = scanner.next();
                         this.controller.setCertainDeviceId(newDeviceId);
                         break;
-                    case 3:// generate random
+                    case 3:
+                        this.controller.generateRandomDeviceId();
+                        String randomDeviceId = this.controller.getDeviceID();
+                        System.out.println("The generated device ID is: " + randomDeviceId);
                         break;
-                    case 4: // Generate measurements
-                        this.controller.generateMeasurementForDevice();
+                    case 4:
+                        this.controller.generateMeasurementForDevice(testDate);
+                        measurements = this.controller.getGeneratedMeasurements();
+                        System.out.println("Measurement has been generated.");
                         break;
-                    case 5: // genreate many
-                        this.controller.generateMeasurementForDevice();
-
+                    case 5:
+                        this.controller.generateMeasurementsForDevice(testDate, 10);
+                        measurements = this.controller.getGeneratedMeasurements();
+                        System.out.println("Multiple measurements has been generated.");
                         break;
-                    case 6: // generate critical
+                    case 6:
+                         this.controller.generateCriticalMeasurementForDevice(testDate);
+                         measurements = this.controller.getGeneratedMeasurements();
+                         System.out.println("Critical measurement has been generated.");
                         break;
-                    case 7: // Show measurements
+                    case 7:
+                        System.out.println("These are your current measurements:");
+                        showMeasurements(measurements);
                         break;
-                    case 8: //Send to server 
+                    case 8:
+                        this.controller.sendMeasurements(10);
+                        System.out.println("Measurements uploaded to server.");
                         break;
                 }
                 System.out.println();
