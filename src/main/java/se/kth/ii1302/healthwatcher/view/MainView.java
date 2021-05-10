@@ -36,7 +36,7 @@ public class MainView {
                 System.out.println("Enter you choice: ");
                 int choice = scanner.nextInt();
                 System.out.println("");
-                Date testDate = new Date(2021, 5, 1, 7, 30);
+                Date testDate = new Date(121, 4, 1, 7, 30);
                 switch (choice) {
                     case 1:
                         System.out.println("The present device id: " + this.controller.getDeviceID());
@@ -71,8 +71,9 @@ public class MainView {
                         showMeasurements(measurements);
                         break;
                     case 8:
-                        this.controller.sendMeasurements(10);
+                        String[] responses = this.controller.sendMeasurements(2);
                         System.out.println("Measurements uploaded to server.");
+                        showResponses(responses);
                         break;
                 }
                 System.out.println();
@@ -83,19 +84,20 @@ public class MainView {
     }
     
     private void interfaceMenu() {
-       System.out.println("*********************************************************");
-       System.out.println("**               Device Simulation App                 **");
-       System.out.println("*********************************************************");
-       System.out.println("1. Get device id.");
-       System.out.println("2. Set certain device id.");
-       System.out.println("3. Generate a random device id.");
-       System.out.println("4. Generate measurement for the current device.");
-       System.out.println("5. Generate multiple measurements for the current device.");
-       System.out.println("6. Generate critical measurement for the current device.");      
-       System.out.println("7. Get the current generated measurements.");
-       System.out.println("8. Send the current measurements to the server.");
-       System.out.println("*********************************************************");
-       System.out.println("*********************************************************");
+       System.out.println("*************************************************************");
+       System.out.println("*******************  Device Simulation App ******************");
+       System.out.println("*************************************************************");
+       System.out.println("*                                                           *");
+       System.out.println("* 1. Get device id.                                         *");
+       System.out.println("* 2. Set certain device id.                                 *");
+       System.out.println("* 3. Generate a random device id.                           *");
+       System.out.println("* 4. Generate measurement for the current device.           *");
+       System.out.println("* 5. Generate multiple measurements for the current device. *");
+       System.out.println("* 6. Generate critical measurement for the current device.  *");      
+       System.out.println("* 7. Get the current generated measurements.                *");
+       System.out.println("* 8. Send the current measurements to the server.           *");
+       System.out.println("*                                                           *");
+       System.out.println("*************************************************************");
 
     }
 
