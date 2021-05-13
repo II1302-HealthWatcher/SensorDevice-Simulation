@@ -94,11 +94,16 @@ public class MainView {
             button2.addActionListener((ActionEvent e) -> {
                 String newDeviceId = JOptionPane.showInputDialog(frame,"Please write your desired device ID (HW-XXXXX)");
                 try {
-                    this.controller.setCertainDeviceId(newDeviceId);
+                    if (newDeviceId != null){
+                        this.controller.setCertainDeviceId(newDeviceId);
+                        output.append("- New device ID has been set.\n");
+                    }
+                    else
+                        output.append("- No device ID was chosen.\n");
                 } catch (IOException ex) {
                     Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                output.append("- New device ID has been set.\n");
+                
             });
 
             // Generate random id
