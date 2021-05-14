@@ -32,7 +32,7 @@ public class MainView {
     public MainView(Controller controller) {
         this.controller = controller;
         this.output = new JTextArea("");
-        this.output.setEnabled(false);
+        this.output.setEditable(false);
         this.measurements = null;
         this.testDate = new Date(121, 4, 1, 7, 30);
         this.amount = 10;
@@ -168,6 +168,11 @@ public class MainView {
                 showResponses(responses);
             });
             
+            JButton button10 = new JButton("Clear");
+            button10.addActionListener((ActionEvent e) -> {
+                resetOutput();
+            });
+            
             controlField.add(button1);
             controlField.add(button2);
             controlField.add(button3);
@@ -177,6 +182,7 @@ public class MainView {
             controlField.add(button7);
             controlField.add(button8);
             controlField.add(button9);
+            controlField.add(button10);
 
             frame.getContentPane().add(BorderLayout.SOUTH, controlField);
 
