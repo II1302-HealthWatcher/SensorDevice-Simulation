@@ -50,9 +50,11 @@ public class MainView {
             frame.setSize(900, 500);
             frame.setLocationRelativeTo(null);
 
-            // Adding filler at the top
-            JPanel filler = new JPanel();
-            frame.getContentPane().add(BorderLayout.NORTH, filler);
+            // Adding fillers
+            JPanel fillerUp = new JPanel();
+            JPanel fillerLeft = new JPanel();
+            frame.getContentPane().add(BorderLayout.NORTH, fillerUp);
+            frame.getContentPane().add(BorderLayout.LINE_END, fillerLeft);
 
             // Static text area with option menu
             JTextArea textArea = new JTextArea(
@@ -69,7 +71,7 @@ public class MainView {
              );
             // Setting the properties of the textarea
             textArea.setEditable(false);
-            textArea.setPreferredSize(new Dimension(400, 500));
+            textArea.setPreferredSize(new Dimension(450, 500));
             Color defaultColor = UIManager.getColor("Panel.background");
             textArea.setBackground(defaultColor);
             Font font = textArea.getFont();  
