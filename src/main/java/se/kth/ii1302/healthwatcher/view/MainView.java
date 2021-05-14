@@ -21,10 +21,7 @@ public class MainView {
     private Controller controller;
     private JTextArea output;
     private MeasurementsDTO[] measurements;
-    private Date testDate;
-    private int amount;
     private String[] responses;
-    private int delay;
     
     /**
      * Constructs a MainView and sets the controller field.
@@ -35,10 +32,7 @@ public class MainView {
         this.output = new JTextArea("");
         this.output.setEditable(false);
         this.measurements = null;
-        this.testDate = null;
-        this.amount = 0;
         this.responses = null;
-        this.delay = 0;
     }
     
     /**
