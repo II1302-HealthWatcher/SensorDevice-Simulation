@@ -29,9 +29,10 @@ public class MeasurementsTransferServiceProvider implements InformationTransferP
      */
     public String sendMeasurement(String measurement) throws IOException {
         HttpURLConnection serverConnection = getConnection();
-        serverConnection.setRequestMethod("POST");
         serverConnection.setDoOutput(true);
         serverConnection.setUseCaches(false);
+        serverConnection.setRequestMethod("POST");
+        serverConnection.setRequestProperty("User-Agent", "HealthWatcher / 1.0");
         serverConnection.setRequestProperty("Content-Length", Integer.toString(measurement.length()));
         DataOutputStream sendRequestToServer = new DataOutputStream(serverConnection.getOutputStream());
         sendRequestToServer.writeBytes(measurement);
